@@ -7,27 +7,17 @@ import CreateItem from './CreateItem.js';
 
 class App extends React.Component {
   state = {
-    value: '',
-    items: [],
+    items: []
   };
 
-  handleChange = event => {
-    this.setState({ value: event.target.value });
-  };
-
-  addItem = event => {
-    event.preventDefault();
+  addItem = val => {
     this.setState(oldState => ({
-      items: [...oldState.items, this.state.value],
+      items: [...oldState.items, val],
     }));
   };
 
   deleteLastItem = event => {
     this.setState(prevState => ({ items: this.state.items.slice(0, -1) }));
-  };
-
-  inputIsEmpty = () => {
-    return this.state.value === '';
   };
 
   noItemsFound = () => {
@@ -43,7 +33,7 @@ class App extends React.Component {
         </header>
         <h2>Shopping List</h2>
         
-    	<CreateItem value={this.state.value} handleChange={this.handleChange} inputIsEmpty={this.inputIsEmpty} addItem={this.addItem}/>
+    	<CreateItem value={this.state.value} addItem={this.addItem}/>
         <DeleteLastItem deleteLastItem={this.deleteLastItem} noItemsFound={this.noItemsFound} />
         <Items items={this.state.items} />
       </div>
